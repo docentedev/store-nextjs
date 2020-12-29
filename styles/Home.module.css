@@ -1,122 +1,259 @@
-.container {
-  min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .main {
-  padding: 5rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    margin: 0px;
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.5;
+    transition: all 0.35s ease 0s;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: rgba(0, 0, 0, 0.004) 1px 1px 1px;
 }
 
-.footer {
-  width: 100%;
-  height: 100px;
-  border-top: 1px solid #eaeaea;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer img {
-  margin-left: 0.5rem;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-  margin-top: 3rem;
-}
-
-.card {
-  margin: 1rem;
-  flex-basis: 45%;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-}
-
-@media (max-width: 600px) {
-  .grid {
+.header {
+    padding: 20px 30px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 99999;
+    top: 0px;
+    left: 0px;
     width: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px;
+    transition: all 0.3s ease 0s;
+}
+
+.header {
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media (max-width: 1400px) {
+    .header {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+.container {
+    overflow: hidden;
+    padding: 68px 0px 100px;
+    display: grid;
+    min-height: 100vh;
+    gap: 15px 30px;
+    grid-template-columns: minmax(0px, 1fr);
+    background-color: rgb(249, 249, 249);
+}
+
+@media screen and (min-width: 767px) {
+    .container {
+        padding: 68px 0px 50px;
+        row-gap: 20px;
+        grid-template-columns: minmax(0px, 1fr);
+    }
+}
+
+@media screen and (min-width: 991px) {
+    .container {
+        padding: 110px 2rem 50px;
+        row-gap: 0px;
+        grid-template-columns: 300px minmax(0px, 1fr);
+    }
+}
+
+.container__categorySide aside {
+    width: 300px;
+    position: fixed;
+    top: 110px;
+    left: 30px;
+    height: calc(100% - 110px);
+}
+
+.container__categorySide aside ul {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: max-content;
+    padding-bottom: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.container__categorySide aside ul a {
+    text-decoration: none;
+}
+
+.container__categorySide aside ul li {
+    background-color: rgb(255, 255, 255);
+    list-style: none;
+    margin: 0;
+    text-align: center;
+    padding: 1rem 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.container__categorySide aside ul li:hover {
+    border: 2px solid rgb(33, 33, 33);
+}
+
+.container__categorySide aside ul li div {
+    box-sizing: border-box;
+    min-width: 0px;
+    margin: 0px;
+    padding: 10px 15px;
+    height: 80px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    display: flex;
+}
+
+.container__categorySide aside ul li div img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.container__categorySide aside ul li p {
+    box-sizing: border-box;
+    min-width: 0px;
+    margin: 0px;
+    color: rgb(33, 33, 33);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/*
+.productFilter {
+    display: flex;
+}
+
+.productFilter h1 {
+    flex-grow: 1;
+}
+
+.productFilter__sort {
+    display: flex;
+}
+
+.productFilter__sort__collection {
+    display: flex;
     flex-direction: column;
-  }
+}
+Products Filter
+          <nav className={styles.productFilter}>
+
+            <h1>Jackets</h1>
+
+            <div className={styles.productFilter__sort}>
+              <div className={styles.productFilter__sort__collection}>
+                <label>Filter by:</label>
+                <select>
+                  <option value="/">All Jackets</option>
+                </select>
+              </div>
+              <div className={styles.productFilter__sort__collection}>
+                <label>Sort by:</label>
+                <select>
+                  <option value="/">Featured</option>
+                </select>
+              </div>
+            </div>
+          </nav>*/
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+}
+
+@media screen and (min-width: 1100px) {
+    .products {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.products__productCard {
+    text-decoration: none;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid rgb(243, 243, 243);
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+}
+
+.products__productCard:hover {
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px;
+    transform: translateY(-5px);
+}
+
+.products__productCard__image {
+    height: 250px;
+    padding: 2rem;
+}
+
+@media screen and (max-width: 1280px) {
+    .products__productCard__image {
+        height: 250px;
+    }
+}
+
+.products__productCard__image img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+}
+
+.products__productCard__info {
+    box-sizing: border-box;
+    min-width: 0px;
+    margin: 0px;
+    padding: 30px;
+}
+
+.products__productCard__info h2 {
+    margin-bottom: 10px;
+    color: rgb(153, 153, 153);
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.products__productCard__info__price {
+    box-sizing: border-box;
+    min-width: 0px;
+    margin: 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.products__productCard__info__price p {
+    color: rgb(13, 17, 54);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.products__productCard__info__price button {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    transition: all 0.35s ease-in-out 0s;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(230, 230, 230);
+    cursor: pointer;
 }
