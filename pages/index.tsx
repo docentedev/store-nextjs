@@ -1,94 +1,44 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
 import useSwr from 'swr'
 import styles from '../styles/Home.module.css'
+import Product from '../components/Product'
+import CategoryButton from '../components/CategoryButton'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+import Header from '../components/Header'
+import Products from '../components/Products'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function Home() {
 
-  const { data, error } = useSwr('/api/products', fetcher)
+  const router = useRouter()
+
+  const { data: dataProducts, error: errorProducts } = useSwr('/api/products', fetcher)
   const { data: dataCategories, error: errorCategories } = useSwr('/api/categories', fetcher)
 
-  if (error) return <div>Failed to load products</div>
-  if (!data) return <div>Loading...</div>
-
+  if (errorProducts) return <div>Failed to load products</div>
   if (errorCategories) return <div>Failed to load categories</div>
   if (!dataCategories) return <div>Loading...</div>
 
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="Description" content="Author: A.N. Author,
-    Illustrator: P. Picture, Category: Books, Price: $17.99,
-    Length: 784 pages"></meta>
+        <title>IVI Gaming | Home</title>
       </Head>
-
-      <header className={styles.header}>
-        IVI Gaming <a href="https://nextjs.org">Mi Cuenta</a>
-      </header>
-
-      <div className={styles.container}>
+      <Header />
+      <div className="container">
         <div style={{ display: 'none' }}>a</div>
         <div className={styles.container__categorySide}>
           <aside>
             <ul>
               {dataCategories.map((category) => (
-                <li key={category.id} role="button">
-                  <Link href={category.query}>
-                    <a>
-                      <div>
-                        <Image
-                          src={category.image}
-                          alt={category.title}
-                          width={500}
-                          height={500}
-                        />
-                      </div>
-                      <p>{category.title}</p>
-                    </a>
-                  </Link>
-                </li>
+                <CategoryButton router={router} key={category.id} category={category} />
               ))}
             </ul>
           </aside>
         </div>
         <main className={styles.main}>
-          <section className={styles.products}>
-            {data.map((product) => (
-              <Link key={product.id} href="/products/[tittle]/[id]" as={`/products/${product.title}/${product.id}`}>
-                <a className={styles.products__productCard}>
-                  <article>
-                    <div className={styles.products__productCard__image}>
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        width={'auto'}
-                        height={'auto'}
-                      />
-                    </div>
-                    <div className={styles.products__productCard__info}>
-                      <h2>{product.title}</h2>
-                      <div className={styles.products__productCard__info__price}>
-                        <p>{product.price}</p>
-                        <button>
-                          <Image
-                            src='/svgs/pluss.svg'
-                            alt="Pluss Icon"
-                            width={5}
-                            height={5}
-                          />
-                        </button>
-                      </div>
-                    </div>
-                  </article>
-                </a>
-              </Link>
-            ))}
-          </section>
+          <Products products={dataProducts} />
         </main>
       </div>
       <footer>

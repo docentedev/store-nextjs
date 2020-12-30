@@ -1,0 +1,31 @@
+.Header {
+    padding: 20px 30px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 99999;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px;
+    transition: all 0.3s ease 0s;
+}
+
+.Header {
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 2px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media (max-width: 1400px) {
+    .Header {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}

@@ -1,12 +1,12 @@
 const users = [{
     id: 1,
     title: 'Computadores',
-    query: '?category=computer',
+    key: 'computer',
     image: '/svgs/computer.svg',
 }, {
     id: 2,
     title: 'Teclados',
-    query: '?category=keyboard',
+    key: 'keyboard',
     image: '/svgs/keyboard.svg',
 }]
 

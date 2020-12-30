@@ -21,8 +21,10 @@ const users = [{
 }, {
     id: 5,
     title: 'DELL Monitor TN 22” FULL HD E2216H',
-    price: '$98.990',
+    price: '$90.000',
     image: '/images/91ddmP-VCL._AC_SX679_.jpg',
+    discount: '10%',
+    previousPrice: '$100.000',
 }, {
     id: 6,
     title: 'DRAGSTER GT400 ELECTRIC GREEN',
