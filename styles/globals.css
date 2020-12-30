@@ -10,8 +10,6 @@ body {
     box-sizing: border-box;
 }
 
-.react-multi-carousel-dot-list {}
-
 .react-multi-carousel-dot-list li {
     border: 1px solid rgb(241, 241, 241);
     border-radius: 6px;
