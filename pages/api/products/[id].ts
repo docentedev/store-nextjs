@@ -1,3 +1,5 @@
+import WooCommerce from '../../../backend/woocomerce'
+
 export default function userHandler(req, res) {
     const {
         query: { id, name },
@@ -7,22 +9,8 @@ export default function userHandler(req, res) {
     switch (method) {
         case 'GET':
             // Get data from your database
-            res.status(200).json({
-                id: 5,
-                title: 'DELL Monitor TN 22” FULL HD E2216H',
-                description: '> Panel IPS<br>> Entradas DisplayPort + HDMI + VGA<br>> 1920 x 1080 Full HD<br>> Ratio de contraste estático 1000:1',
-                price: 90000,
-                formatPrice: '$90.000',
-                previousPrice: 100000,
-                formatPreviousPrice: '$100.000',
-                discount: '%10',
-                image: '/images/91ddmP-VCL._AC_SX679_.jpg',
-                images: [
-                    '/images/91ddmP-VCL._AC_SX679_.jpg',
-                    '/images/dell_24_p2419h_full_hd_1535120460_1430184.jpg',
-                    '/images/1535120206_IMG_1053761.png',
-                ],
-                tags: [{ title: 'Gabinete', key: 'gabinete' }],
+            WooCommerce.get(`products/${id}`).then(function (result) {
+                res.status(200).json(result.data)
             })
             break
         case 'PUT':

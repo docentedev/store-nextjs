@@ -1,40 +1,31 @@
 import useSwr from 'swr'
 import Head from 'next/head'
-import Carousel from 'react-multi-carousel'
 import { useRouter } from 'next/router'
-import 'react-multi-carousel/lib/styles.css'
+import Error from 'next/error'
 import styles from './Detail.module.css'
 import Header from '../../../components/Header'
 import Products from '../../../components/Products'
 import IconBag from '../../../components/icons/IconBag'
 import React from 'react'
 import { ContextOne } from '../../../cart/context'
+import IconAdd from '../../../components/icons/IconAdd'
+import IconRemove from '../../../components/icons/iconRemove'
+import Slider from '../../../components/Slider'
+import { currencyFormat, calculateDiscount } from '../../../frontend/utils'
 
-const responsive = { "desktop": { "breakpoint": { "max": 3000, "min": 1024 }, "items": 1 }, "mobile": { "breakpoint": { "max": 464, "min": 0 }, "items": 1 }, "tablet": { "breakpoint": { "max": 1024, "min": 200 }, "items": 1 } }
 const fetcher = (url) => fetch(url).then((res) => res.json())
-const Detail = () => {
 
+const Detail = ({ data, errorCode }) => {
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  }
   const router = useRouter()
-  const { data, error } = useSwr(router.query.id ? `/api/products/${router.query.id}` : null, fetcher)
-  const { data: dataProducts, error: errorProducts } = useSwr(router.query.id ? '/api/products' : null, fetcher)
+
+  const { data: dataProducts, error: errorProducts } = useSwr(router.query.id ? `/api/products?include=${data.related_ids[0]}` : null, fetcher)
 
   if (!data) return <div>Loading...</div>
 
-  const CustomDot = ({ onMove, index, onClick, active }: any) => {
-    // onMove means if dragging or swiping in progress.
-    // active is provided by this lib for checking if the item is active or not.
-    // {index + 1}
-    return (
-      <li
-        className={active ? "active" : "inactive"}
-        onClick={() => onClick()}
-      >
-        <img src={data.images[index]} alt={data.title} />
-      </li>
-    );
-  };
-
-  const { addProduct, removeProduct } = React.useContext(ContextOne);
+  const { getProduct, addProduct, removeProduct } = React.useContext(ContextOne);
 
   const handlerAddProduct = (e) => {
     e.preventDefault()
@@ -48,59 +39,39 @@ const Detail = () => {
   return (
     <div>
       <Head>
-        <title>IVI Gaming | Producto: {data.title}</title>
+        <title>IVI Gaming | Producto: {data.name}</title>
       </Head>
       <Header />
       <div className="container--product-detail">
         <main className={styles.Detail}>
           <div className={styles.Detail__Container}>
+            <Slider data={data} />
             <div>
-              <Carousel
-                responsive={responsive}
-                additionalTransfrom={0}
-                arrows={false}
-                autoPlaySpeed={3000}
-                centerMode={false}
-                className=""
-                dotListClass=""
-                draggable
-                focusOnSelect={false}
-                infinite
-                itemClass=""
-                keyBoardControl
-                minimumTouchDrag={80}
-                renderButtonGroupOutside={false}
-                renderDotsOutside={false}
-                showDots
-                sliderClass=""
-                slidesToSlide={1}
-                swipeable
-                customDot={<CustomDot />}
-              >
-                {data.images.map((image: string, i: number) => (
-                  <div key={i}>
-                    <img
-                      src={image}
-                      alt={data.title}
-                    />
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-            <div>
-              <h1>{data.title}</h1>
+              <h1>{data.name}</h1>
               <div className={styles.Detail__Container__price}>
-                <strong>{data.formatPrice}</strong>
-                {data.formatPreviousPrice && <span>{data.formatPreviousPrice}</span>}
+                <strong>{currencyFormat(data.price)}</strong>
+                {data.regular_price && <span>{currencyFormat(data.regular_price)}</span>}
               </div>
               <div className={styles.Detail__Container__Description}>
                 <div dangerouslySetInnerHTML={{ __html: data.description }} />
               </div>
               <div className={styles.Detail__Actions}>
                 <div>
-                  <button onClick={handlerAddProduct} className={styles.Detail__Actions__Button}>
-                    <IconBag />
-                    Agregar al carrito</button>
+                  {getProduct(data.id) ? (
+                    <div className={styles.Detail__Actions__Counter}>
+                      <button onClick={handlerRemoveProduct} className="counterstyle__CounterButton-sc-8iu0h2-1 hQDaWZ control-button">
+                        <IconRemove />
+                      </button>
+                      <span className="counterstyle__CounterValue-sc-8iu0h2-2 fWCkFI">{getProduct(data.id).quantity}</span>
+                      <button onClick={handlerAddProduct}>
+                        <IconAdd />
+                      </button>
+                    </div>
+                  ) : (
+                      <button onClick={handlerAddProduct} className={styles.Detail__Actions__Button}>
+                        <IconBag />
+                      Agregar al carrito</button>
+                    )}
                 </div>
               </div>
             </div>
@@ -116,5 +87,18 @@ const Detail = () => {
   )
 }
 
+export async function getServerSideProps({ params }) {
+  // Fetch data from external API
+  const r = await fetch(`${process.env.NEXT_API_SELF_HOST}/api/products/${params.id}`)
+  let resp = { props: { data: {}, errorCode: 0 } }
+  try {
+    const data = await r.json()
+    resp.props.data = data
+  } catch (_) {
+    resp.props.errorCode = 404
+  }
+  // Pass data to the page via props
+  return resp
+}
 
 export default Detail

@@ -72,7 +72,9 @@ const ContextOneProvider = (props) => {
     const addProduct = product => dispatch({ type: "add-product", payload: product });
     const removeProduct = id => dispatch({ type: "remove-product", payload: id });
 
-    let value = { state, addProduct, removeProduct, dispatch };
+    const getProduct = (id) => state.products.find(e => e.id === id)
+
+    let value = { state, addProduct, removeProduct, getProduct, dispatch };
 
     // [B]
     return (

@@ -2,6 +2,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Create `.env.local`
+```bash
+NEXT_API_SELF_HOST=http://localhost:3000
+
+API_URL=http://localhost:8888
+API_URL_CONSUMER_KEY=ck_11111111111111111111111111
+API_URL_CONSUMER_SECRET=cs_1111111111111111111111111
+```
+
 First, run the development server:
 
 ```bash
