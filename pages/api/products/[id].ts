@@ -11,8 +11,10 @@ export default function userHandler(req, res) {
                 id: 5,
                 title: 'DELL Monitor TN 22” FULL HD E2216H',
                 description: '> Panel IPS<br>> Entradas DisplayPort + HDMI + VGA<br>> 1920 x 1080 Full HD<br>> Ratio de contraste estático 1000:1',
-                price: '$98.990',
-                previousPrice: '$100.000',
+                price: 90000,
+                formatPrice: '$90.000',
+                previousPrice: 100000,
+                formatPreviousPrice: '$100.000',
                 discount: '%10',
                 image: '/images/91ddmP-VCL._AC_SX679_.jpg',
                 images: [

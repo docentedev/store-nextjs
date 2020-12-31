@@ -6,6 +6,9 @@ import 'react-multi-carousel/lib/styles.css'
 import styles from './Detail.module.css'
 import Header from '../../../components/Header'
 import Products from '../../../components/Products'
+import IconBag from '../../../components/icons/IconBag'
+import React from 'react'
+import { ContextOne } from '../../../cart/context'
 
 const responsive = { "desktop": { "breakpoint": { "max": 3000, "min": 1024 }, "items": 1 }, "mobile": { "breakpoint": { "max": 464, "min": 0 }, "items": 1 }, "tablet": { "breakpoint": { "max": 1024, "min": 200 }, "items": 1 } }
 const fetcher = (url) => fetch(url).then((res) => res.json())
@@ -26,10 +29,21 @@ const Detail = () => {
         className={active ? "active" : "inactive"}
         onClick={() => onClick()}
       >
-        <img src={data.images[index]} alt="DELL Monitor TN 22” FULL HD E2216H" />
+        <img src={data.images[index]} alt={data.title} />
       </li>
     );
   };
+
+  const { addProduct, removeProduct } = React.useContext(ContextOne);
+
+  const handlerAddProduct = (e) => {
+    e.preventDefault()
+    addProduct(data)
+  }
+  const handlerRemoveProduct = (e) => {
+    e.preventDefault()
+    removeProduct(data.id)
+  }
 
   return (
     <div>
@@ -76,11 +90,18 @@ const Detail = () => {
             <div>
               <h1>{data.title}</h1>
               <div className={styles.Detail__Container__price}>
-                <strong>{data.price}</strong>
-                {data.previousPrice && <span>{data.previousPrice}</span>}
+                <strong>{data.formatPrice}</strong>
+                {data.formatPreviousPrice && <span>{data.formatPreviousPrice}</span>}
               </div>
               <div className={styles.Detail__Container__Description}>
                 <div dangerouslySetInnerHTML={{ __html: data.description }} />
+              </div>
+              <div className={styles.Detail__Actions}>
+                <div>
+                  <button onClick={handlerAddProduct} className={styles.Detail__Actions__Button}>
+                    <IconBag />
+                    Agregar al carrito</button>
+                </div>
               </div>
             </div>
           </div>
@@ -89,9 +110,7 @@ const Detail = () => {
             <Products products={dataProducts} type="related" />
           </section>
         </main>
-        <footer>
-          Footer
-      </footer>
+        <footer></footer>
       </div>
     </div>
   )

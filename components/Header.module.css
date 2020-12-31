@@ -6,7 +6,7 @@
     -webkit-box-pack: justify;
     justify-content: space-between;
     position: fixed;
-    z-index: 99999;
+    z-index: 1;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -23,9 +23,113 @@
     padding-bottom: 20px;
 }
 
+.Header__LogoSide {
+    margin-left: 30px;
+}
+
+.Header img {
+    cursor: pointer;
+    max-width: 150px;
+}
+
+.Header__ButtonMenu {
+    width: 26px;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.Header__ButtonMenu span {
+    display: block;
+    background-color: rgb(13, 17, 54);
+    border-radius: 6px;
+    height: 3px;
+    margin-bottom: 5px;
+    transition: all 0.2s ease-in-out 0s;
+}
+
+.Header__ButtonMenu span:nth-child(1) {
+    width: 26px;
+}
+
+.Header__ButtonMenu span:nth-child(2) {
+    width: 12px;
+}
+
+.Header__ButtonMenu span:nth-child(3) {
+    margin-bottom: 0px;
+    width: 22px;
+}
+
+.Header__AccountSide {
+    margin-left: auto;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.Header__AccountSide__ButtonAccount {
+    width: auto;
+    height: 38px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(241, 241, 241);
+    padding: 0px 10px;
+    border-radius: 6px;
+    outline: 0px;
+    cursor: pointer;
+    font-family: Lato, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: rgb(0, 158, 127);
+    text-decoration: none;
+}
+
 @media (max-width: 1400px) {
     .Header {
         padding-top: 20px;
         padding-bottom: 20px;
     }
+}
+
+
+/* SearchForm */
+
+.SearchForm {
+    margin: 0px 15px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 100%;
+    color: rgb(119, 121, 140);
+    background-color: rgb(247, 247, 247);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(241, 241, 241);
+}
+
+.SearchForm svg {
+    margin-left: 16px;
+    margin-right: 16px;
+    color: #212121;
+}
+
+.SearchForm input {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    font-size: 15px;
+    padding-right: 20px;
+    height: 48px;
+    color: rgb(119, 121, 140);
+    background-color: inherit;
+    appearance: none;
+    border: 0px;
 }

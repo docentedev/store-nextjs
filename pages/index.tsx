@@ -1,6 +1,6 @@
+import React from 'react'
 import useSwr from 'swr'
 import styles from '../styles/Home.module.css'
-import Product from '../components/Product'
 import CategoryButton from '../components/CategoryButton'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -15,6 +15,7 @@ export default function Home() {
 
   const { data: dataProducts, error: errorProducts } = useSwr('/api/products', fetcher)
   const { data: dataCategories, error: errorCategories } = useSwr('/api/categories', fetcher)
+
 
   if (errorProducts) return <div>Failed to load products</div>
   if (errorCategories) return <div>Failed to load categories</div>
@@ -41,9 +42,7 @@ export default function Home() {
           <Products products={dataProducts} />
         </main>
       </div>
-      <footer>
-        Footer
-      </footer>
+      <footer></footer>
     </div >
   )
 }

@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import React from 'react'
+import { ContextOne } from "../cart/context";
 import IconPlus from './icons/IconPlus'
 
 import styles from './Product.module.css'
@@ -7,8 +9,8 @@ type ProductType = {
     image: string,
     title: string,
     id: string,
-    price: string,
-    previousPrice?: string,
+    formatPrice: string,
+    formatPreviousPrice?: string,
     discount?: string,
 }
 
@@ -18,6 +20,17 @@ interface ProductProps {
 }
 
 const Product = ({ product }: ProductProps) => {
+    const { addProduct, removeProduct } = React.useContext(ContextOne);
+
+    const handlerAddProduct = (e) => {
+        e.preventDefault()
+        addProduct(product)
+    }
+    const handlerRemoveProduct = (e) => {
+        e.preventDefault()
+        removeProduct(product.id)
+    }
+
     return (
         <Link href="/products/[tittle]/[id]" as={`/products/${product.title}/${product.id}`}>
             <a className={styles.productCard}>
@@ -35,12 +48,15 @@ const Product = ({ product }: ProductProps) => {
                         <h2>{product.title}</h2>
                         <div className={styles.productCard__info__price}>
                             <div>
-                                <p>{product.price}</p>
-                                {product.previousPrice && (
-                                    <span>{product.previousPrice}</span>
+                                <p>{product.formatPrice}</p>
+                                {product.formatPreviousPrice && (
+                                    <span>{product.formatPreviousPrice}</span>
                                 )}
                             </div>
-                            <button>
+                            <button onClick={handlerRemoveProduct}>
+                                -
+                            </button>
+                            <button onClick={handlerAddProduct}>
                                 <IconPlus />
                             </button>
                         </div>
