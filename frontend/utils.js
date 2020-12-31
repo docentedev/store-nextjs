@@ -1,4 +1,4 @@
-export const currencyFormat = (value) => `$${new Intl.NumberFormat("es-CL").format(parseFloat(value))}`
+export const currencyFormat = (value) => `$${value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")}`
 
 export const calculateDiscount = (original, final) => {
     const e = original - final

@@ -21,7 +21,7 @@ const CategoryButton = ({ category, router }: CategoryButtonProps) => {
 
     return (
         <li role="button" className={`${styles.categoryButton} ${getSelected()}`}>
-            <Link href={`?category=${category.key}`}>
+            <Link href={`/?category=${category.key}`}>
                 <a>
                     <div>
                         <Image
